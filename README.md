@@ -1,13 +1,17 @@
-# urban-mobility-analytics-platform
+# Urban Mobility Analytics Platform
 
-# Architecture Definition
+An end-to-end medallion architecture analytics platform built using NYC Taxi trip data.
 
-NYC TLC Parquet Files
-        ↓
-Bronze: Raw files in GCS
-        ↓
-Silver: Cleaned/conformed trips in BigQuery
-        ↓
-Gold: dbt marts for dashboarding
-        ↓
-Power BI Dashboard
+## Tech Stack
+
+- Python
+- Google Cloud Storage
+- BigQuery
+- PySpark
+- dbt
+- Airflow
+- Power BI
+
+## Architecture
+
+Bronze → Silver → Gold medallion architecture for scalable analytics engineering workflows.
