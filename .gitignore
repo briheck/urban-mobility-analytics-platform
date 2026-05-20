@@ -35,3 +35,6 @@ Thumbs.db
 
 # data files
 data/
+
+# PBI files
+*.pbix
