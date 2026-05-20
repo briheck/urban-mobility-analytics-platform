@@ -5,3 +5,4 @@ google-cloud-bigquery
 pyspark
 dbt-bigquery
 apache-airflow
+requests
