@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: urban-mobility-analytics-51926
+    schema: urban_mobility_bronze
+    tables:
+      - name: yellow_taxi_trips
+      - name: taxi_zone_lookup
