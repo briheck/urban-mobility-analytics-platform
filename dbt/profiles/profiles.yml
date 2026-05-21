@@ -1,0 +1,12 @@
+urban_mobility:
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: urban-mobility-analytics-51926
+      dataset: urban_mobility_dbt
+      threads: 4
+      location: US
+      priority: interactive
+      keyfile: /opt/airflow/project/secrets/gcp_service_account.json
+  target: dev

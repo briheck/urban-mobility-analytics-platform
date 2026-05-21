@@ -28,12 +28,12 @@ with DAG(
 
     run_dbt_models = BashOperator(
         task_id="run_dbt_models",
-        bash_command=f"cd {DBT_PROJECT_DIR} && dbt run",
+        bash_command=f"cd {DBT_PROJECT_DIR} && dbt run --profiles-dir /opt/airflow/project/dbt/profiles",
     )
 
     run_dbt_tests = BashOperator(
         task_id="run_dbt_tests",
-        bash_command=f"cd {DBT_PROJECT_DIR} && dbt test",
+        bash_command=f"cd {DBT_PROJECT_DIR} && dbt test --profiles-dir /opt/airflow/project/dbt/profiles",
     )
 
     [ingest_yellow_taxi, ingest_taxi_zones] >> run_dbt_models >> run_dbt_tests

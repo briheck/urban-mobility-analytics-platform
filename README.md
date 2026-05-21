@@ -115,6 +115,14 @@ Visualize in Power BI
 
 ---
 
+# Airflow Orchestration
+
+![Airflow DAG](docs/screenshots/airflow_dag.png)
+
+![Airflow Successful Run](docs/screenshots/airflow_successful_run.png)
+
+---
+
 # Dashboard Screenshots
 
 ## Executive Overview

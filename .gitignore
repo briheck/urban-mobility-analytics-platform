@@ -46,3 +46,8 @@ venv/
 target/
 dbt_packages/
 logs/
+
+# Secrets and config files
+secrets/
+*.json
+dbt/profiles/.user.yml
