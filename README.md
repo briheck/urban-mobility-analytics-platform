@@ -1,46 +1,65 @@
 # Urban Mobility Analytics Platform
 
-An end-to-end analytics engineering project built using NYC Taxi trip data and a medallion data architecture on Google Cloud Platform.
+An end-to-end analytics engineering project built using NYC Taxi trip data and a modern medallion architecture on Google Cloud Platform.
 
-This project demonstrates cloud data ingestion, warehouse modeling, medallion architecture design, dimensional analytics engineering, and Power BI dashboard development using modern data tooling.
+This project demonstrates cloud data ingestion, warehouse modeling, dbt transformation workflows, dimensional analytics engineering, and Power BI dashboard development using modern analytics engineering practices.
 
 ---
 
-## Project Architecture
+# Project Architecture
 
 ```text
 NYC TLC Parquet Files
         ↓
-Bronze Layer (Raw)
-    Google Cloud Storage
-    BigQuery External Tables
+Python Ingestion Scripts
         ↓
-Silver Layer (Cleaned & Conformed)
-    BigQuery Transformations
+Google Cloud Storage (Bronze)
         ↓
-Gold Layer (Analytics Marts)
-    Fact Tables
-    Aggregated Reporting Tables
+BigQuery External Tables
+        ↓
+dbt Silver Models
+        ↓
+dbt Gold Fact Tables & Marts
         ↓
 Power BI Dashboard
 ```
 
 ---
 
-## Medallion Architecture
+# Medallion Architecture
 
-### Bronze Layer
-Raw NYC Taxi parquet files stored in Google Cloud Storage and exposed through BigQuery external tables.
+## Bronze Layer
 
-### Silver Layer
-Cleaned and standardized trip data with derived metrics:
-- trip duration
-- fare per mile
-- tip percentage
-- temporal attributes
+Raw NYC Taxi parquet and CSV files stored in Google Cloud Storage and exposed through BigQuery external tables.
 
-### Gold Layer
-Business-ready analytics models and reporting marts:
+### Bronze Tables
+- yellow_taxi_trips
+- taxi_zone_lookup
+
+---
+
+## Silver Layer
+
+Cleaned and standardized datasets with derived business metrics and dimensional enrichment.
+
+### Silver Models
+- stg_yellow_taxi_trips
+- dim_taxi_zone
+
+### Silver Transformations
+- trip duration calculations
+- fare per mile calculations
+- tip percentage calculations
+- temporal enrichment
+- data quality filtering
+
+---
+
+## Gold Layer
+
+Business-ready analytics models optimized for reporting and dashboard consumption.
+
+### Gold Models
 - fact_taxi_trips
 - mart_daily_demand
 - mart_hourly_demand
@@ -48,22 +67,23 @@ Business-ready analytics models and reporting marts:
 
 ---
 
-## Tech Stack
+# Tech Stack
 
 | Layer | Technology |
 |---|---|
 | Language | Python |
+| Cloud Platform | Google Cloud Platform |
 | Cloud Storage | Google Cloud Storage |
 | Data Warehouse | BigQuery |
+| Transformation Framework | dbt |
 | Data Processing | SQL |
-| Orchestration | Planned: Airflow |
-| Analytics Engineering | Planned: dbt |
 | Visualization | Power BI |
 | Version Control | Git & GitHub |
+| Architecture Pattern | Medallion Architecture |
 
 ---
 
-## Pipeline Workflow
+# Pipeline Workflow
 
 ```text
 Download NYC Taxi Data
@@ -72,79 +92,165 @@ Store Raw Files in GCS
         ↓
 Create Bronze External Tables
         ↓
-Transform Data into Silver Layer
+Build Silver dbt Models
         ↓
 Build Gold Fact Tables & Marts
+        ↓
+Validate with dbt Tests
         ↓
 Visualize in Power BI
 ```
 
 ---
 
-## Data Models
+# dbt Lineage
 
-### Bronze
-- yellow_taxi_trips
-- taxi_zone_lookup
-
-### Silver
-- yellow_taxi_trips_cleaned
-- dim_taxi_zone
-
-### Gold
-- fact_taxi_trips
-- mart_daily_demand
-- mart_hourly_demand
-- mart_zone_performance
+![dbt Lineage](docs/screenshots/dbt_lineage.png)
 
 ---
 
-## Dashboard Screenshots
+# dbt Model Documentation
 
-### Executive Overview
+![fact_taxi_trips Model](docs/screenshots/fact_taxi_trips_model.png)
+
+---
+
+# Dashboard Screenshots
+
+## Executive Overview
 
 ![Executive Overview](dashboards/powerbi/screenshots/executive_overview.png)
 
-### Demand Analysis
+---
+
+## Demand Analysis
 
 ![Demand Analysis](dashboards/powerbi/screenshots/demand_analysis.png)
 
-### Zone Performance
+---
+
+## Zone Performance
 
 ![Zone Performance](dashboards/powerbi/screenshots/zone_performance.png)
 
-### Trip Behavior & Revenue Analysis
+---
+
+## Trip Behavior & Revenue Analysis
 
 ![Trip Behavior](dashboards/powerbi/screenshots/trip_behavior.png)
 
 ---
 
-## Key Features
+# Key Features
 
+- End-to-end cloud analytics engineering pipeline
 - Medallion architecture implementation
-- Cloud-native storage and querying
-- Partitioned BigQuery tables
+- BigQuery warehouse modeling
+- dbt modular transformations
+- dbt lineage and dependency management
+- dbt testing framework
 - Dimensional analytics modeling
-- Aggregated reporting marts
+- Gold reporting marts
 - Interactive Power BI dashboards
-- SQL-based transformation workflows
+- Source-controlled SQL transformations
 
 ---
 
-## Future Enhancements
+# Data Models
 
-- dbt migration
-- Airflow orchestration
-- PySpark transformation layer
-- Automated data quality checks
+## Bronze
+
+### yellow_taxi_trips
+Raw NYC taxi trip parquet data.
+
+### taxi_zone_lookup
+Taxi zone dimension lookup data.
+
+---
+
+## Silver
+
+### stg_yellow_taxi_trips
+Cleaned and standardized trip data with derived metrics.
+
+### dim_taxi_zone
+Taxi zone dimension table.
+
+---
+
+## Gold
+
+### fact_taxi_trips
+Trip-level fact table enriched with pickup and dropoff zone information.
+
+### mart_daily_demand
+Daily trip demand and revenue metrics by borough.
+
+### mart_hourly_demand
+Hourly trip demand analysis by borough.
+
+### mart_zone_performance
+Zone-level operational and revenue performance metrics.
+
+---
+
+# dbt Testing
+
+Implemented dbt tests for:
+- not_null validations
+- warehouse integrity checks
+- model validation
+
+---
+
+# Future Enhancements
+
+- Apache Airflow orchestration
+- Incremental dbt models
 - CI/CD pipeline integration
-- Incremental loading strategy
+- Automated data quality monitoring
+- PySpark transformation layer
+- Terraform infrastructure-as-code
+- Real-time streaming ingestion
+- Advanced geospatial analytics
 
 ---
 
-## Dataset Source
+# Dataset Source
 
 NYC Taxi & Limousine Commission (TLC) Trip Record Data
 
 https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page
+
+---
+
+# Repository Structure
+
+```text
+urban-mobility-analytics-platform/
+│
+├── dashboards/
+│   └── powerbi/
+│       └── screenshots/
+│
+├── data/
+│
+├── dbt/
+│   └── urban_mobility/
+│       └── models/
+│           ├── silver/
+│           └── gold/
+│
+├── docs/
+│   └── screenshots/
+│
+├── scripts/
+│
+├── sql/
+│   ├── silver/
+│   └── gold/
+│
+├── requirements.txt
+└── README.md
+```
 

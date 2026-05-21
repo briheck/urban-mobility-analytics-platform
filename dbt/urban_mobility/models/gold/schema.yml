@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: fact_taxi_trips
+    description: "Trip-level fact table for NYC taxi analytics."
+
+    columns:
+      - name: pickup_datetime
+        tests:
+          - not_null
+
+      - name: dropoff_datetime
+        tests:
+          - not_null
+
+      - name: pickup_location_id
+        tests:
+          - not_null
+
+      - name: trip_distance
+        tests:
+          - not_null
+
+  - name: mart_daily_demand
+    description: "Daily aggregated demand metrics by borough."
+
+    columns:
+      - name: pickup_date
+        tests:
+          - not_null
+
+      - name: pickup_borough
+        tests:
+          - not_null
+
+  - name: mart_hourly_demand
+    description: "Hourly demand metrics by borough."
+
+  - name: mart_zone_performance
+    description: "Zone-level performance and revenue metrics."

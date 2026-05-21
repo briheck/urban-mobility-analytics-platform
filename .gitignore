@@ -38,3 +38,11 @@ data/
 
 # PBI files
 *.pbix
+
+.venv/
+venv/
+
+# dbt
+target/
+dbt_packages/
+logs/
